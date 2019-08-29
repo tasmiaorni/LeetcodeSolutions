@@ -62,13 +62,13 @@ public class RobinKarp {
 		List res=new ArrayList<Integer>();
 		long txt_hash=hash(txt,M);
 		long pat_hash=hash(pat,M);
-		// loop ta cholbe jotogula M length er pattern possible in input string
+		// This loop will run for (N-M+1) times  where N-M+1= the no of possible substring with size M in our input string
 		for (int i=1;i<=N-M+1;i++) {
-			//starting ei mile gele
+			//if the pattern matches at the starting
 			if (pat_hash==txt_hash && checkequal(txt,i-1,i+M-2,pat,0,M-1)){
 			    res.add(i-1);
 			}
-			// joto gulaa M length er pattern thakbe repeat korbo
+		    //else we need to recalculate hash value 
 			if(i<N-M+1) {
 				txt_hash=recalculate_hash(txt,txt_hash,i-1,i+M-1,M);
 			}

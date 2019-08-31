@@ -1,5 +1,5 @@
 import java.util.*;
-public class RobinKarp {
+public class RabinKarp {
 
 	static int   R=10;
 	static int prime=101;
@@ -79,7 +79,7 @@ public class RobinKarp {
 	}
 
 	public static void main(String[] args) {
-		RobinKarp rks=new RobinKarp();
+		RabinKarp rks=new RabinKarp();
 		System.out.print("NaiveSearch:\n");
 		List index_array1=rks.naivesearch("TUSHERROYPROY","BC");
 		for (int i=0;i<index_array1.size();i++) {

@@ -1,0 +1,17 @@
+# image extension
+*.jpg
+*.png
+*.bmp
+*.jpeg
+*.tif
+
+# class files
+*.class
+
+# compiled  static libraries
+*.lib
+*.la
+*.a
+*.lai
+
+*.opendb

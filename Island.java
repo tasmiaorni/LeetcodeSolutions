@@ -16,7 +16,6 @@ public class Island {
 	public int noofislands(int [][] graph) {
 		if (graph.length == 0 || graph == null) return 0;
 		int count=0;
-		//boolean [][]visited=new boolean [graph.length][graph[0].length];
 		for (int i=0;i<graph.length;i++) {
 			for (int j=0;j<graph[i].length;j++) {
 				if(graph[i][j]==1 ) {

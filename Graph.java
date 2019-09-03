@@ -7,25 +7,24 @@ public class Graph {
 	private int V;
 	//array of linkedlist 
 	private LinkedList<Integer> adjacencylist[];
-	
+
 	//constructor
 	Graph(int v ){
 		this.V=v;
 		adjacencylist=new LinkedList[v];
 		for (int i=0;i<v;i++) {
-			adjacencylist[i]=new LinkedList();
+			adjacencylist[i]=new LinkedList<Integer>();
 		}
 	}
-	
+
 	void addEdge(int v,int w) {
 		adjacencylist[v].add(w);
-		
+
 	}
-	
-	// BFS
-	
+
+	// BFS traversal
 	void BFS(int start_node) {
-		
+
 		boolean visited[]= new boolean[V];
 		LinkedList<Integer> all_nodes=new LinkedList<Integer>();
 		visited[start_node]=true;
@@ -42,11 +41,11 @@ public class Graph {
 				}			
 			}			
 		}	
-			
+
 	}
-	
+
 	// DFS with recursion
-	
+
 	void DFSUtil(int v,boolean visited[]) {
 		visited[v]=true;
 		System.out.print(v);
@@ -56,6 +55,7 @@ public class Graph {
 			if (!visited[child]) {
 				DFSUtil(child,visited);
 			}
+			System.out.print("\n");
 		}
 		
 	}
@@ -65,7 +65,8 @@ public class Graph {
 		DFSUtil(start,visited);		
 	}
 	
-	void connectedcomponent() {
+	// this one uses DFS to find connected components in a graph
+	void connectedcomponentDFS() {
 		//initially mark every node in the graph as unvisited
 		boolean visited[]=new boolean[V];
 		int component=0;
@@ -75,33 +76,53 @@ public class Graph {
 			if(!visited[i]) {
 				component++;
 				DFSUtil(i,visited);
-				System.out.println();
 			}
 		}
-		System.out.print("Total connected components found:");
-		System.out.print(component);
-		System.out.print("\n");
+		System.out.print("Total Components using DFS:"+component+"\n");
 	}
+
+	// this one uses BFS to find connected component in a graph
+	void connectedcomponentBFS() {
+		//initially mark every node in the graph as unvisited
+		boolean visited[]=new boolean[V];
+		int component=0;
+		LinkedList<Integer> queue=new LinkedList<Integer>();
+		for (int s=0;s<V;s++) {
+			if(!visited[s]) {
+				queue.add(s);
+				visited[s]=true;
+				component++;
+				while(!queue.isEmpty()) {
+					int node=queue.poll();
+					Iterator<Integer>in =adjacencylist[node].listIterator();
+					while(in.hasNext()) {
+						int child=in.next();
+						visited[child]=true;
+						queue.add(child);
+					}
+				}
+
+			}
+		}
+		System.out.print(component+"\n");
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 		Graph g=new Graph(5);
 		g.addEdge(0, 1);  
-        g.addEdge(2, 3);  
-        g.addEdge(3, 4); 
-		/*g.addEdge(0, 1); 
-        g.addEdge(0, 2); 
-        g.addEdge(1, 2); 
-        g.addEdge(2, 0); 
-        g.addEdge(2, 3); 
-        g.addEdge(3, 3); */
-        System.out.print("Connected components:\n");
-        g.connectedcomponent();
-        System.out.print("BFS Traversal:");
-        g.BFS(2);
-        System.out.print("\n");
-        System.out.print("DFS Traversal:");
-        g.DFS(2);
+		g.addEdge(2, 3);  
+		g.addEdge(3, 4); 
+		System.out.print("Connected components using BFS:\n");
+		g.connectedcomponentBFS();
+		System.out.print("Connected components using DFS:\n");
+		g.connectedcomponentDFS();
+		System.out.print("BFS Traversal:");
+		g.BFS(2);
+		System.out.print("\n");
+		System.out.print("DFS Traversal:");
+		g.DFS(2);
 
 	}
 
